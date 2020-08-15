@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route} from 'react-router-dom';
 import Landing from './pages/Landing';
 import CoderList from './pages/CoderList';
-import CoderForm from './pages/CoderForm';
+import CoderForm from './pages/CoderSignUp';
 
 function Routes() {
     return (

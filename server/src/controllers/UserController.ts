@@ -9,7 +9,7 @@ interface ScheduleItem {
     to: string
 }
 
-export default class ClassesController {
+export default class UserController {
 
     async index(request: Request, response: Response) {
         const filters = request.query
@@ -73,26 +73,9 @@ export default class ClassesController {
             })
         
             const user_id = insertUserIds[0]
+            console.log(insertUserIds)
             
-            const insertClassesIds = await trx('classes').insert({
-                subject,
-                cost,
-                user_id
-        
-            })
-        
-            const class_id = insertClassesIds
-        
-            const classSchadule = schedule.map((scheduleItem: ScheduleItem) => {
-                return {
-                class_id,
-                week_day: scheduleItem.week_day,
-                from: convertHourToMinutes(scheduleItem.from),
-                to: convertHourToMinutes(scheduleItem.to)
-                }
-            })
-        
-            await trx('class_schedule').insert(classSchadule)
+            
             await trx.commit()
     
             return response.status(201).send()
