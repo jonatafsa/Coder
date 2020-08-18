@@ -10,6 +10,8 @@ export async function up(Knex: Knex) {
         table.string('phone').notNullable()
         table.string('activate').notNullable()
         table.string('news').notNullable()
+        table.string('bio').nullable()
+        table.string('avatar').nullable()
     })
 }
 

@@ -3,9 +3,6 @@ import { Link } from 'react-router-dom';
 
 import './styles.css';
 
-import Logo from '../../assets/images/logo.svg';
-import BackIcon from '../../assets/images/icons/back.svg';
-
 import PageHeader from '../../components/PageHeader';
 import CoderItem from '../../components/CoderItens';
 

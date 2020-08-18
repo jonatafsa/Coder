@@ -1,67 +1,67 @@
 import { Request, Response } from 'express'
 
 import db from '../database/connection'
-import convertHourToMinutes from '../utils/convertHourToMinutes'
+
 
 interface ScheduleItem {
-    week_day: number,
-    from: string,
-    to: string
+    name: object
+    user_name: string
+    email: string
+    password: string
+    phone: number
+    activate: number
+    news: number
 }
 
-export default class UserController {
+export default class userController {
 
     async index(request: Request, response: Response) {
-        const filters = request.query
 
-        const subject = filters.subject as string
-        const time = filters.time as string
-        const week_day = filters.week_day as string
+        const users = await db('users')
+        .select(['users.user_name'])
 
-        if (!filters.week_day || !filters.subject || !filters.time) {
-            return response.status(400).json({
-                Error: "Missing Filter to search classes"
-            })
-        }
-
-        const timeInMinutes = convertHourToMinutes(time)
-
-        const classes = await db('classes')
-        .whereExists(function() {
-            this.select('class_schedule.*')
-             .from('class_schedule')
-             .whereRaw('`class_schedule`.`class_id` = `classes`.`id`')
-             .whereRaw('`class_schedule`.`week_day` = ??', [Number(week_day)])
-             .whereRaw('`class_schedule`.`from` <= ??', [timeInMinutes])
-             .whereRaw('`class_schedule`.`from` > ??', [timeInMinutes])
-        })
-         .where('classes.subject', '=', subject)
-         .join('users', 'classes.user_id', '=', 'user_id')
-         .select(['classes.*', 'users.*'])
-
-        return response.json(classes)
+        return response.json(users)
     }
 
     async create(request: Request, response: Response) {
+
         const {
             name,
             user_name,
             email,
             password,
             phone,
-            activate,
-            news,
-            avatar,
-            whatsapp,
-            bio,
-            subject,
-            cost,
-            schedule
+            activate = 1,
+            news
         } = request.body
-    
+            
         const trx = await db.transaction()
     
         try {
+
+            const verifyUser = await trx('users').count('* as totalUser')
+            .where('users.user_name', '=', [user_name])
+            
+            const verifyEmail = await trx('users').count('* as totalEmail')
+            .where('users.email', '=', [email])
+
+            const { totalUser } = verifyUser[0]
+            const { totalEmail } = verifyEmail[0]
+
+            if (totalUser >= 1) {
+                trx.rollback()
+                return response.status(400).json({
+                    Error: "User already registered"
+                })
+            } 
+
+            if (totalEmail >= 1) {
+                trx.rollback()
+                return response.status(400).json({
+                    Error: "Email already registered"
+                })
+            }             
+       
             const insertUserIds = await trx('users').insert({
                 name,
                 user_name,
@@ -71,11 +71,7 @@ export default class UserController {
                 activate,
                 news
             })
-        
-            const user_id = insertUserIds[0]
-            console.log(insertUserIds)
-            
-            
+
             await trx.commit()
     
             return response.status(201).send()

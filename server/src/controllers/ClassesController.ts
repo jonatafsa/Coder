@@ -78,7 +78,6 @@ export default class ClassesController {
                 subject,
                 cost,
                 user_id
-        
             })
         
             const class_id = insertClassesIds

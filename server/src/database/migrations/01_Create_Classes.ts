@@ -6,12 +6,13 @@ export async function up(Knex: Knex) {
         table.string('subject').notNullable()
         table.string('cost').notNullable()
 
+        // referencia o ID do User
         table.integer('user_id')
         .notNullable()
         .references('id')
         .inTable('users')
-        .onUpdate('CASCADE')
-        .onDelete('CASCADE')
+        .onUpdate('CASCADE') //CASADE Edita todos os campos onde referencia o ID do User
+        .onDelete('CASCADE') //CASADE deleta todos os campos onde referencia o ID do User
 
     })
 }
