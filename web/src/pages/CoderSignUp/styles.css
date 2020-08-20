@@ -27,6 +27,110 @@
   
 }
 
+#page-teacher-form main span {
+  font-size: 1.2rem;
+  margin: 4rem;
+  color: #f7b1b1;
+}
+
+#page-teacher-form main .icon {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -3.3rem;
+  margin-right: 1.4rem;
+  position: relative;
+  display: flex;
+  float: right;
+}
+
+#page-teacher-form main .icon-red {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -3.3rem;
+  margin-right: 1.4rem;
+  position: relative;
+  display: flex;
+  float: right;
+  color: red;
+}
+
+#page-teacher-form main .icon-yellow {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -3.3rem;
+  margin-right: 1.4rem;
+  position: relative;
+  display: flex;
+  float: right;
+  color: rgb(223, 212, 60);
+}
+
+#page-teacher-form main .icon-green {
+  width: 1.4rem;
+  height: 1.4rem;
+  margin-top: -3.3rem;
+  margin-right: 1.4rem;
+  position: relative;
+  display: flex;
+  float: right;
+  color: rgb(25, 212, 0);
+}
+
+
+#page-teacher-form #span-phone {
+  display: flex;
+}
+
+#page-teacher-form .phone-class {
+  width: 94%;
+  height: 5.6rem;
+  margin-left: 3rem;
+  margin-top: 0.8rem;
+  margin-bottom: 1.8rem;
+  border-radius: 0.8rem;
+  background: var(--color-input-background);
+  border: 1px solid var(--color-line-in-white);
+  outline: 0;
+  padding: 0 1.6rem;
+  font: 1.6rem Archivo;
+}
+
+#page-teacher-form #span-phone span {
+  margin: 0;
+  margin-top: 2.1rem;
+  margin-bottom: -0.7rem;
+  padding: 0.8rem 0;
+  font-size: 1.4rem;
+  color: var(--color-text-complement);
+}
+
+.input-phone {
+  width: 100%;
+  height: 5.6rem;
+  border-radius: 0.8rem;
+  background: var(--color-input-background);
+  border: 1px solid var(--color-line-in-white);
+  outline: 0;
+  padding: 0 1.6rem;
+  font: 1.6rem Archivo;
+}
+
+#input-block-verify {
+  background: var(--color-input-background);
+  border: 1px solid var(--color-line-in-white);
+}
+
+#input-block-verify-red {
+  height: 5.8rem;
+  border: 1px solid red;
+  box-shadow: 1rem 0.5rem 0.5rem #f7b1b1;
+}
+
+#input-block-verify-green {
+  height: 5.6rem;
+  box-shadow: inset 0 0 0.5rem var(--color-secundary);
+}
+
 #page-teacher-form main {
   background: var(--color-box-base);
   width: 100%;
