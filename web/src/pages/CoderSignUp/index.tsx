@@ -1,18 +1,40 @@
-import React, { useState, useEffect, FormEvent } from "react";
-import { Link } from "react-router-dom";
-import api from "../../services/api";
+//Import do React
+import React, { useState, useEffect, FormEvent } from "react"
+import ReactDOM from 'react-dom';
+import { Link } from "react-router-dom"
 
-import "./styles.css";
-import Input from "../../components/Input/";
+//Api que faz comunicação com o Server
+import api from "../../services/api"
 
-import warningIcon from "../../assets/images/icons/warning.svg";
-import logoImg from "../../assets/images/logo.svg";
-import backIcon from "../../assets/images/icons/back.svg";
-import landingImg from '../../assets/images/landing.svg';
+//Folha de Estilos CSS
+import "./styles.css"
 
+//Imports de Componentes
+import Input from "../../components/Input/"
+import warningIcon from "../../assets/images/icons/warning.svg"
+import logoImg from "../../assets/images/logo.svg"
+import backIcon from "../../assets/images/icons/back.svg"
+import landingImg from '../../assets/images/landing.svg'
+
+//react-phone-input-2 e suas dependências é uma biblioteca externa
 import PhoneInput from 'react-phone-input-2'
-
 import 'react-phone-input-2/lib/semantic-ui.css'
+
+//Import de Modal
+import Modal from 'react-modal'
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)'
+  }
+}
+
+Modal.setAppElement('#root')
 
 export default function TeacherForm() {
 
@@ -24,12 +46,37 @@ export default function TeacherForm() {
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
   const [news, setNews] = useState('')
+
+  //Variáveis de verificação de usuário
   const [verifyUserInput, setVerifyUserInput] = useState('input-block-verify')
   const [verifyEmailInput, setVerifyEmailInput] = useState('input-block-verify')
   const [messageEmail, setMessageEmail] = useState('')
   const [messageUser, setMessageUser] = useState('')
   const [iconVerifyEmail, setIconVerifyEmail] = useState('icon fa fa-square-o')
+  
+  // Variaveis do Modal
+  const [messageModal, SetMessageModal] = useState('Modal')
+  const [contentModal, setContentModal] = useState(<i> </i>)
+  const [modalIsOpen, setIsOpen] = React.useState(false);
 
+  const regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+  //Função que Abre o Modal
+  function openModal() {
+    setIsOpen(true);
+  }
+
+
+  // Ação após o modal aberto
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    setContentModal(<i> Xablau </i>)
+  }
+
+  //Função que fecha o modal
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   // Requisição GET para verificar a quantidade de usuários cadastrados
   useEffect(() => {
@@ -39,11 +86,9 @@ export default function TeacherForm() {
     })
   }, [])
 
-  //Função que cadastra o usuário
+  //Função que verifica e cadastra o usuário
   function usersSignUp(e: FormEvent) {
     e.preventDefault()
-
-    const regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
     if (
       (email.search(regexp)) !== -1 &&
@@ -70,7 +115,10 @@ export default function TeacherForm() {
 
     } else {
 
-      return alert('Revise os erros a seguir')
+      return (
+        SetMessageModal('Verifique os erros a seguir:'),
+        openModal()
+        )
 
     }
 
@@ -123,8 +171,6 @@ export default function TeacherForm() {
   function verifyEmailValues() {
 
     setVerifyEmailInput('input-block-verify')
-
-    const regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
     if ((email.search(regexp) !== -1)) {
       return (
@@ -251,6 +297,25 @@ export default function TeacherForm() {
           </div>
           <div className="right-box footer">mais de {totalUsers} usuários cadastrados</div>
         </div>
+
+        <Modal
+          isOpen={modalIsOpen}
+          onAfterOpen={afterOpenModal}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Example Modal"
+        >
+          <div className="modal-top">
+
+            <span>{messageModal}</span>
+            <button onClick={closeModal}>X</button>
+
+          </div>
+
+          <div>
+            {contentModal}
+          </div>
+        </Modal>
       </div>
     </div>
   );

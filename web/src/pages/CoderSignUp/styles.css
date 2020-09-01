@@ -20,10 +20,7 @@
 .left img {
   height: 5rem;
   background:var(--color-primary);
-  margin: 0.5rem;
-  padding: 1.5rem;
   border: 1px solid;
-  border-radius: 1.8rem;
   
 }
 
@@ -217,6 +214,33 @@
   background: var(--color-secundary-dark);
 }
 
+.modal-top {
+  width: 70vw;
+  display: inline-block;
+  justify-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-bottom: 0.1rem solid var(--color-line-in-white);    
+}
+
+.modal-top h2 {
+  display: inline-block;
+  padding: 0.5rem;   
+  overflow: hidden;
+}
+
+.modal-top button {
+  display: inline-block;
+  padding: 0.5rem;   
+  float: right;
+  background: none;
+  border: none;
+}
+
+.modal-top button:hover {
+  color: var(--color-line-in-white);
+}
+
 @media (min-width: 900px) {
   #page-teacher-form {
     max-width: 100vw;
@@ -229,13 +253,12 @@
   }
 
   .left img {
-    height: 5rem;
+    height: 5.5rem;
     background:var(--color-primary);
-    margin: 0.5rem 0.5rem;
-    padding: 1.5rem;
+    margin-top: 0;
+    padding: 1.3rem;
     border: 1px solid;
-    border-radius: 1.8rem;
-    position: absolute;
+    position: fixed;
   }
 
   .right {
