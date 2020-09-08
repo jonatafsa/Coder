@@ -215,12 +215,16 @@
 }
 
 .modal-top {
-  width: 70vw;
+  width: 100%;
   display: inline-block;
   justify-items: center;
   justify-content: space-between;
   padding: 0.5rem;
   border-bottom: 0.1rem solid var(--color-line-in-white);    
+}
+.modal-content {
+  padding: 2.5rem; 
+  color: #f7b1b1;
 }
 
 .modal-top h2 {

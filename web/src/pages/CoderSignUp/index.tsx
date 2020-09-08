@@ -1,6 +1,5 @@
 //Import do React
 import React, { useState, useEffect, FormEvent } from "react"
-import ReactDOM from 'react-dom';
 import { Link } from "react-router-dom"
 
 //Api que faz comunicação com o Server
@@ -53,30 +52,15 @@ export default function TeacherForm() {
   const [messageEmail, setMessageEmail] = useState('')
   const [messageUser, setMessageUser] = useState('')
   const [iconVerifyEmail, setIconVerifyEmail] = useState('icon fa fa-square-o')
-  
+
   // Variaveis do Modal
   const [messageModal, SetMessageModal] = useState('Modal')
-  const [contentModal, setContentModal] = useState(<i> </i>)
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = React.useState(false)
+
+  const resultValidation: Map<string, string> = new Map<string, string>()
 
   const regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
-  //Função que Abre o Modal
-  function openModal() {
-    setIsOpen(true);
-  }
-
-
-  // Ação após o modal aberto
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    setContentModal(<i> Xablau </i>)
-  }
-
-  //Função que fecha o modal
-  function closeModal() {
-    setIsOpen(false);
-  }
 
   // Requisição GET para verificar a quantidade de usuários cadastrados
   useEffect(() => {
@@ -86,18 +70,84 @@ export default function TeacherForm() {
     })
   }, [])
 
+  //Função que Abre o Modal
+  function openModal() {
+    setIsOpen(true)
+  }
+
+  // Ação após o modal aberto
+  function afterOpenModal() {
+    // references are now sync'd and can be accessed.
+    validateUser()
+    const listElement = document.getElementById('modalList')
+
+    const validationResult = validateUser()
+
+    const result = Array.from(validationResult.entries())
+    const error = new Array(
+      result
+        .map((kp) => `${kp[0]}-${kp[1]}`)
+        .join(","),
+    )
+
+    var array = error[0].split(",")
+    console.table(array)
+
+    for (let todo of array) {
+      const todoElement = document.createElement('li')
+      const todoText = document.createTextNode(todo)
+
+      todoElement.appendChild(todoText)
+      listElement?.appendChild(todoElement)
+    }
+    return
+  }
+
+  //Função que fecha o modal
+  function closeModal() {
+    setIsOpen(false)
+  }
+
+  //Função de validação de usuário
+  function validateUser() {
+
+    if ((email.search(regexp)) !== 0) {
+      resultValidation.set("E-mail ", " O email não é valido")
+    }
+    if ((name.length) < 8) {
+      resultValidation.set("Nome ", " Seu Nome está muito curto")
+    }
+    if ((user_name.length) < 6) {
+      resultValidation.set("Usuário ", " Nome de usuário muito curto")
+    }
+    if ((password.length) < 6) {
+      resultValidation.set("Senha ", " A senha está muito cuta")
+    }
+    if ((phone.length) < 11) {
+      resultValidation.set("Telefone ", " O numero de telefone está incompleto")
+    }
+    if (verifyUserInput == 'input-block-verify-red') {
+      resultValidation.set("BD Username", " O usuário já esta cadastrado")
+    }
+    if (verifyEmailInput == 'input-block-verify-red') {
+      resultValidation.set("BD Mail ", " O E-mail já esta cadastrado")
+    }
+
+    return resultValidation
+  }
+
   //Função que verifica e cadastra o usuário
   function usersSignUp(e: FormEvent) {
     e.preventDefault()
+    validateUser()
 
-    if (
-      (email.search(regexp)) !== -1 &&
-      (name.length) > 10 &&
-      (user_name.length) > 8 &&
-      (password.length > 6) &&
-      (phone.length > 11) &&
-      (verifyEmailInput == 'input-block-verify')
-    ) {
+    const validationResult = validateUser()
+    if (validationResult.size) {
+      return (
+        openModal(),
+        SetMessageModal('Verifique os erros a seguir:')
+        )
+    } else {
       const valida = api.post('createuser', {
         name,
         user_name,
@@ -106,22 +156,11 @@ export default function TeacherForm() {
         phone,
         news
       }).then(() => {
-        alert('Foi bom')
+        console.log('cadastrou')
       }).catch(() => {
-        alert('Foi mal')
+        console.log('Não Cadastrou')
       })
-
-      return alert('Cadastrou')
-
-    } else {
-
-      return (
-        SetMessageModal('Verifique os erros a seguir:'),
-        openModal()
-        )
-
     }
-
   }
 
 
@@ -165,7 +204,6 @@ export default function TeacherForm() {
         verifyEmailValues()
       )
     }
-    return
   }
 
   function verifyEmailValues() {
@@ -306,19 +344,18 @@ export default function TeacherForm() {
           contentLabel="Example Modal"
         >
           <div className="modal-top">
-
-            <span>{messageModal}</span>
+              <span>{messageModal}</span>
             <button onClick={closeModal}>X</button>
 
           </div>
 
-          <div>
-            {contentModal}
+          <div className="modal-content">
+          <ul id="modalList"></ul>
           </div>
         </Modal>
       </div>
     </div>
-  );
+  )
 
 }
 
