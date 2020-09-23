@@ -2,7 +2,7 @@
 
 [![N|Solid](https://i.ibb.co/2g8JSN0/01.png)](https://github.com/jonatafsa)
 
-[![Build Status](https://github.com/jonatafsa/Coder)]()
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)]()
 
 Coder, atualmente é uma plataforma de cadastro com validação de dados do Formulário.
 
