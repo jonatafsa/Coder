@@ -1,16 +1,16 @@
 # Coder
 
-[![N|Solid](https://i.ibb.co/zmdLKQc/01.png)](https://github.com/jonatafsa)
+[![N|Solid](https://i.ibb.co/2g8JSN0/01.png)](https://github.com/jonatafsa)
 
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)]()
+[![Build Status]]()
 
-Coder, atualmente é uma plataforma de cadastro validação de dados Formulário(front-end) e via servidor(back-end).
+Coder, atualmente é uma plataforma de cadastro com validação de dados do Formulário.
 
   - Sample page - Página de introdução em React
   - Página de cadastro em React
   - Página de Usuário em React
 
-  [![alt text](https://i.ibb.co/m9z4Vpj/Sem-t-tulo.png)]
+  ![alt text](https://i.ibb.co/m9z4Vpj/Sem-t-tulo.png)
 
 # Em breve
 

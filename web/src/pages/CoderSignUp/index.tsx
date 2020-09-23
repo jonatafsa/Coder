@@ -57,8 +57,10 @@ export default function TeacherForm() {
   const [messageModal, SetMessageModal] = useState('Modal')
   const [modalIsOpen, setIsOpen] = React.useState(false)
 
+  // Map que captura os erros em String
   const resultValidation: Map<string, string> = new Map<string, string>()
 
+  // regex que verifica Email
   const regexp = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 
@@ -77,10 +79,11 @@ export default function TeacherForm() {
 
   // Ação após o modal aberto
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
+    // as referências agora estão sincronizadas e podem ser acessadas.
     validateUser()
-    const listElement = document.getElementById('modalList')
 
+    // Listagem dos erros no Modal
+    const listElement = document.getElementById('modalList')
     const validationResult = validateUser()
 
     const result = Array.from(validationResult.entries())
@@ -91,7 +94,6 @@ export default function TeacherForm() {
     )
 
     var array = error[0].split(",")
-    console.table(array)
 
     for (let todo of array) {
       const todoElement = document.createElement('li')
@@ -136,7 +138,7 @@ export default function TeacherForm() {
     return resultValidation
   }
 
-  //Função que verifica e cadastra o usuário
+  //Função que verifica se há erros e cadastra o usuário
   function usersSignUp(e: FormEvent) {
     e.preventDefault()
     validateUser()
@@ -164,7 +166,7 @@ export default function TeacherForm() {
   }
 
 
-
+//Função Assincrona que verifica se o usuário já esta cadastrado
   async function verifyUserFunction() {
 
     const response = await api.get('verifyusername', {
@@ -184,6 +186,7 @@ export default function TeacherForm() {
     return
   }
 
+  //Função Assincrona que verifica se o Email já esta cadastrado
   async function verifyEmailFunction() {
 
     const response = await api.get('verifyemail', {
@@ -206,6 +209,7 @@ export default function TeacherForm() {
     }
   }
 
+  // Função que utiliza a constante regexp para verificar a integridade do Email
   function verifyEmailValues() {
 
     setVerifyEmailInput('input-block-verify')
