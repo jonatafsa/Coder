@@ -127,7 +127,7 @@ export default function TeacherForm() {
       resultValidation.set("Telefone ", " O numero de telefone está incompleto")
     }
     if (verifyUserInput == 'input-block-verify-red') {
-      resultValidation.set("BD Username", " O usuário já esta cadastrado")
+      resultValidation.set("BD Username ", " O usuário já esta cadastrado")
     }
     if (verifyEmailInput == 'input-block-verify-red') {
       resultValidation.set("BD Mail ", " O E-mail já esta cadastrado")
@@ -156,9 +156,9 @@ export default function TeacherForm() {
         phone,
         news
       }).then(() => {
-        console.log('cadastrou')
+        alert('cadastrou')
       }).catch(() => {
-        console.log('Não Cadastrou')
+        alert('Não Cadastrou')
       })
     }
   }
