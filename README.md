@@ -10,11 +10,13 @@ Coder, atualmente é uma plataforma de cadastro validação de dados Formulário
   - Página de cadastro em React
   - Página de Usuário em React
 
+  [![alt text](https://i.ibb.co/m9z4Vpj/Sem-t-tulo.png)]
+
 # Em breve
 
   - Validação de E-mail via NodeJS
-  - Validação de usuários vida Patterns(Build)
-  - Página de postagens para usuários cadastrados
+  - Validação de usuários via Patterns(Build)
+  - Sistema de postagens para usuários cadastrados
   - Aplicação em Mobile usando React native
 
 Você também poderá:
